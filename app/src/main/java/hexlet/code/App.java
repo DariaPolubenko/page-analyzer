@@ -1,9 +1,18 @@
 package hexlet.code;
 
 import io.javalin.Javalin;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class App {
     public static void main(String[] args) {
+
+        var hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
+
+        var dataSource = new HikariDataSource(hikariConfig);
+
+
         Javalin app = App.getApp();
         app.start(getPort());
     }
