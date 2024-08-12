@@ -1,5 +1,4 @@
-### Link: 
-https://java-project-72-kjrz.onrender.com
+### [App link](https://java-project-72-kjrz.onrender.com)
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/DariaPolubenko/java-project-72/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/DariaPolubenko/java-project-72/actions)
