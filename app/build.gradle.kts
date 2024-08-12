@@ -10,7 +10,6 @@ plugins {
 }
 
 application {
-    applicationName = "app"
     mainClass.set(" hexlet.code.App")
 }
 
