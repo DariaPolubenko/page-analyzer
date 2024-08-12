@@ -10,4 +10,7 @@ test:
 report:
 	./gradlew jacocoTestReport
 
+update:
+	./gradlew dependencyUpdates
+
 .PHONY: build
