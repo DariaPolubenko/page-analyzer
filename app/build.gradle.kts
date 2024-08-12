@@ -4,6 +4,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
     id("java")
     checkstyle
+    jacoco
 }
 
 group = "hexlet.code"
@@ -25,4 +26,8 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.jacocoTestReport { reports { xml.required = true } }
+tasks.jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
