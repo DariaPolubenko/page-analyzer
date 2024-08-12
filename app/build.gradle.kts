@@ -10,7 +10,7 @@ plugins {
 }
 
 application {
-    // Входная точка
+    applicationName = "app"
     mainClass.set(" hexlet.code.App")
 }
 
