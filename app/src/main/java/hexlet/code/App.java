@@ -9,10 +9,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         Javalin app = App.getApp();
         app.start(getPort());
     }
@@ -33,7 +34,7 @@ public class App {
         }
     }
 
-    public static Javalin getApp() throws IOException {
+    public static Javalin getApp() throws IOException, SQLException {
         var hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(getDatabaseUrl());
 
@@ -41,6 +42,10 @@ public class App {
         BaseRepository.dataSource = dataSource;
 
         var sql = readResourceFile("schema.sql");
+        try (var connection = dataSource.getConnection();
+             var statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
 
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
