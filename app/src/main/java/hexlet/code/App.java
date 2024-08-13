@@ -26,12 +26,14 @@ public class App {
         return Integer.valueOf(port);
     }
 
+    /*
     private static String readResourceFile(String fileName) throws IOException {
         var inputStream = App.class.getClassLoader().getResourceAsStream(fileName);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             return reader.lines().collect(Collectors.joining("\n"));
         }
     }
+     */
 
     public static Javalin getApp() throws IOException {
         var hikariConfig = new HikariConfig();
@@ -40,7 +42,7 @@ public class App {
         var dataSource = new HikariDataSource(hikariConfig);
         BaseRepository.dataSource = dataSource;
 
-        var sql = readResourceFile("schema.sql");
+        //var sql = readResourceFile("schema.sql");
 
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
