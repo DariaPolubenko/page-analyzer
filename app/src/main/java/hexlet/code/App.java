@@ -12,7 +12,6 @@ public class App {
 
         var dataSource = new HikariDataSource(hikariConfig);
 
-
         Javalin app = App.getApp();
         app.start(getPort());
     }
