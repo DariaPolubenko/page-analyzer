@@ -40,7 +40,7 @@ public class App {
         var dataSource = new HikariDataSource(hikariConfig);
         BaseRepository.dataSource = dataSource;
 
-        //var sql = readResourceFile("schema.sql");
+        var sql = readResourceFile("schema.sql");
 
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
