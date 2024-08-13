@@ -11,7 +11,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class App {
     public static void main(String[] args) throws IOException, SQLException {
         Javalin app = App.getApp();
@@ -42,6 +44,7 @@ public class App {
         BaseRepository.dataSource = dataSource;
 
         var sql = readResourceFile("schema.sql");
+        log.info(sql);
         try (var connection = dataSource.getConnection();
              var statement = connection.createStatement()) {
             statement.execute(sql);
