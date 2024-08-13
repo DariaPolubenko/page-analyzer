@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Javalin app = App.getApp();
         app.start(getPort());
     }
