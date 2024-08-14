@@ -1,4 +1,4 @@
-package hexlet.code;
+package hexlet.code.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
-import io.javalin.rendering.template.JavalinJte;
+import hexlet.code.App;
 import gg.jte.resolve.ResourceCodeResolver;
 
 public class Utils {
