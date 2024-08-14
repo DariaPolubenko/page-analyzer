@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import io.javalin.rendering.template.JavalinJte;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 public class App {
     public static void main(String[] args) throws IOException, SQLException {
