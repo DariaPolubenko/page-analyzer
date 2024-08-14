@@ -1,6 +1,9 @@
 package hexlet.code;
 
+import hexlet.code.controllers.Main;
 import hexlet.code.repository.BaseRepository;
+import hexlet.code.utils.NamedRoutes;
+import hexlet.code.utils.Utils;
 import io.javalin.Javalin;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -8,6 +11,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import io.javalin.http.Context;
 import io.javalin.rendering.template.JavalinJte;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +42,7 @@ public class App {
             config.fileRenderer(new JavalinJte(Utils.createTemplateEngine()));
         });
 
-        app.get("/", ctx -> ctx.result("Hello World"));
+        app.get(NamedRoutes.mainPath(), Main::mainPage);
         return app;
     }
 }
