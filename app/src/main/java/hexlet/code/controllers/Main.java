@@ -4,6 +4,6 @@ import io.javalin.http.Context;
 
 public class Main {
     public static void mainPage(Context ctx) {
-        ctx.result("Hello World");
+        ctx.render("index.jte");
     }
 }
