@@ -1,3 +1,8 @@
+@import hexlet.code.utils.NamedRoutes
+@import  hexlet.code.dto.BuildUrlsPage
+@param BuildUrlsPage page
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,6 +17,23 @@
 <body>
     <div>
         <p>Тут будет главная страница</p>
+        @if(page.getErrors() != null)
+            <ul>
+                @for(var validator : page.getErrors().values())
+                    @for(var error : validator)
+                        <li>${error.getMessage()}</li>
+                    @endfor
+                @endfor
+            </ul>
+        @endif
+        <form action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
+            <div class="mb-3">
+                <label>
+                    <input type="url" class="form-control" placeholder="Введите адрес" name="name" value="${page.getName()}"/>
+                </label>
+            </div>
+            <input type="submit" class="btn btn-primary mb-3" value="Проверить"/>
+        </form>
     </div>
 </body>
 </html>
