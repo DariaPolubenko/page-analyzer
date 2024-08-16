@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import hexlet.code.controllers.Main;
+import hexlet.code.controllers.UrlsController;
 import hexlet.code.repository.BaseRepository;
 import hexlet.code.utils.NamedRoutes;
 import hexlet.code.utils.Utils;
@@ -41,7 +41,9 @@ public class App {
             config.fileRenderer(new JavalinJte(Utils.createTemplateEngine()));
         });
 
-        app.get(NamedRoutes.mainPath(), Main::mainPage);
+        app.get(NamedRoutes.mainPath(), UrlsController::mainPage);
+        app.post(NamedRoutes.urlsPath(), UrlsController::create);
+        app.get(NamedRoutes.urlsPath(), UrlsController::show);
         return app;
     }
 }
