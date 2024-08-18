@@ -17,13 +17,9 @@
 <body>
     <div>
         <p>Тут будет главная страница</p>
-        @if(page.getErrors() != null)
+        @if(page.getError() != null)
             <ul>
-                @for(var validator : page.getErrors().values())
-                    @for(var error : validator)
-                        <li>${error.getMessage()}</li>
-                    @endfor
-                @endfor
+                <li>${page.getError()}</li>
             </ul>
         @endif
         <form action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
