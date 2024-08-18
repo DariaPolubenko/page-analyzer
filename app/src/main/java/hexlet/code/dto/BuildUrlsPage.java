@@ -13,5 +13,5 @@ import java.util.Map;
 @Getter
 public class BuildUrlsPage extends BasePage {
     private String name;
-    private Map<String, List<ValidationError<Object>>> errors;
+    private String error;
 }
