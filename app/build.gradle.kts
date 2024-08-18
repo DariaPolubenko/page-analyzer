@@ -41,6 +41,7 @@ dependencies {
     testImplementation ("com.squareup.okhttp3:mockwebserver:4.12.0")
     implementation ("org.jsoup:jsoup:1.17.2")
     implementation ("com.konghq:unirest-java:3.13.0")
+    implementation("org.springframework:spring-web:6.1.12")
 }
 
 tasks.test {
