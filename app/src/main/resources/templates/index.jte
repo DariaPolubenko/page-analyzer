@@ -3,33 +3,23 @@
 @param BuildUrlsPage page
 
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-          crossorigin="anonymous">
-    <title>Анализатор страниц</title>
-</head>
-<body>
-    <div>
-        <p>Тут будет главная страница</p>
+@template.layout.page(
+content = @`
+<div>
+    <p>Тут будет главная страница</p>
         @if(page.getError() != null)
             <ul>
                 <li>${page.getError()}</li>
             </ul>
         @endif
-        <form action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
-            <div class="mb-3">
-                <label>
-                    <input type="url" class="form-control" placeholder="Введите адрес" name="name" value="${page.getName()}"/>
-                </label>
-            </div>
-            <input type="submit" class="btn btn-primary mb-3" value="Проверить"/>
-        </form>
-    </div>
-</body>
-</html>
+    <form action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
+        <div class="mb-3">
+            <label>
+                <input type="url" class="form-control" placeholder="Введите адрес" name="name" value="${page.getName()}"/>
+            </label>
+        </div>
+        <input type="submit" class="btn btn-primary mb-3" value="Проверить"/>
+    </form>
+</div>
+`
+)
