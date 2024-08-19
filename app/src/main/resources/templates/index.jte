@@ -1,7 +1,6 @@
+@import hexlet.code.dto.UrlsPage
 @import hexlet.code.utils.NamedRoutes
-@import  hexlet.code.dto.BuildUrlsPage
-@param BuildUrlsPage page
-
+@param  UrlsPage page
 
 @template.layout.page(
 content = @`
@@ -11,14 +10,15 @@ content = @`
         </div>
     @endif
     <div>
-        <form action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
-            <div class="mb-3">
-                <label>
-                    <input type="url" class="form-control" placeholder="Введите адрес" name="name" value="${page.getName()}"/>
-                </label>
-            </div>
-            <input type="submit" class="btn btn-primary mb-3" value="Проверить"/>
-        </form>
+        @if(page.getUrls().isEmpty())
+            <p>Пока не добавлен ни один сайт</p>
+        @else
+            @for(var url : page.getUrls())
+                <div>
+                    <a href="${NamedRoutes.urlsPath(url.getId())}">${url.getName()}</a>
+                </div>
+            @endfor
+        @endif
     </div>
     `
 )
