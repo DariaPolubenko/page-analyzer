@@ -23,7 +23,7 @@
     </p>
 </div>
 @if(page != null && page.getFlash() != null)
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-${page.getFlashType()}" role="alert">
         ${page.getFlash()}
     </div>
 @endif
