@@ -21,41 +21,70 @@ import static io.javalin.rendering.template.TemplateUtil.model;
 public class UrlsController {
     public static void mainPage(Context ctx) {
         var page = new BuildUrlsPage();
+
+        String flash = ctx.consumeSessionAttribute("flash");
+        page.setFlash(flash);
+
+        String flashType = ctx.consumeSessionAttribute("flash-type");
+        page.setFlashType(flashType);
+
         ctx.render("index.jte", model("page", page));
     }
 
-    public static void create(Context ctx) throws SQLException, URISyntaxException, MalformedURLException {
+    public static void create(Context ctx) {
         var name = ctx.formParam("name");
-        var url = new URI(name).toURL();
 
-        var normalizedUrl = UriComponentsBuilder.newInstance()
-                .scheme(url.getProtocol())
-                .host(url.getHost())
-                .port(url.getPort())
-                .build()
-                .toUri()
-                .toURL()
-                .toString();
+        try {
+            var url = new URI(name).toURL();
+            var normalizedUrl = UriComponentsBuilder.newInstance()
+                    .scheme(url.getProtocol())
+                    .host(url.getHost())
+                    .port(url.getPort())
+                    .build()
+                    .toUri()
+                    .toURL()
+                    .toString();
 
-        if (UrlRepository.search(normalizedUrl).isEmpty()) {
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            if (UrlRepository.search(normalizedUrl).isEmpty()) {
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                var resultUrl = new Url(normalizedUrl, timestamp);
+                UrlRepository.save(resultUrl);
+                ctx.sessionAttribute("flash", "Сайт добавлен!");
+                ctx.sessionAttribute("flash-type", "success");
+                ctx.redirect(NamedRoutes.urlsPath());
 
-            var resultUrl = new Url(normalizedUrl, timestamp);
-            UrlRepository.save(resultUrl);
-            ctx.sessionAttribute("flash", "Сайт добавлен!");
-            ctx.redirect(NamedRoutes.urlsPath());
+            } else {
+                ctx.sessionAttribute("flash", "Сайт уже существует");
+                ctx.sessionAttribute("flash-type", "warning");
+                ctx.redirect(NamedRoutes.urlsPath());
+            }
 
-        } else {
-            var page = new BuildUrlsPage(normalizedUrl, "Сайт с таким адресом уже существует");
-            ctx.render("index.jte", model("page", page));
+        } catch (Exception e) {
+            ctx.sessionAttribute("flash", "Некорректный URL");
+            ctx.sessionAttribute("flash-type", "danger");
+
+            ctx.redirect(NamedRoutes.mainPath());
         }
+
+        /* } catch (URISyntaxException e) {
+            ctx.sessionAttribute("flash", "Некорректный URL");
+            ctx.sessionAttribute("flash-type", "danger");
+
+            ctx.redirect(NamedRoutes.mainPath());
+        }
+         */
     }
 
     public static void show(Context ctx) throws SQLException {
         var urls = UrlRepository.getEntities();
-        String flash = ctx.consumeSessionAttribute("flash");
         var page = new UrlsPage(urls);
+
+        String flash = ctx.consumeSessionAttribute("flash");
         page.setFlash(flash);
+
+        String flashType = ctx.consumeSessionAttribute("flash-type");
+        page.setFlashType(flashType);
+
         ctx.render("showUrls.jte", model("page", page));
     }
 }
