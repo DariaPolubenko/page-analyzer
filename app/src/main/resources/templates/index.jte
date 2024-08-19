@@ -9,7 +9,7 @@ content = @`
             ${page.getFlash()}
         </div>
     @endif
-    <div>
+    <div class="container">
         @if(page.getUrls().isEmpty())
             <p>Пока не добавлен ни один сайт</p>
         @else
