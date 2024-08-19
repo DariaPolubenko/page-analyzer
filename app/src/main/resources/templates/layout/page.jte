@@ -1,5 +1,5 @@
-@import hexlet.code.dto.BasePage
 @import hexlet.code.utils.NamedRoutes
+@import hexlet.code.dto.BasePage
 @import gg.jte.Content
 @param Content content
 @param BasePage page = null
@@ -22,11 +22,6 @@
         <a href="${NamedRoutes.urlsPath()}" class="btn btn-outline-primary rounded-1 fw-light">Сайты</a>
     </p>
 </div>
-@if(page != null && page.getFlash() != null)
-    <div class="alert alert-${page.getFlashType()}" role="alert">
-        ${page.getFlash()}
-    </div>
-@endif
 ${content}
 </body>
 </html>
