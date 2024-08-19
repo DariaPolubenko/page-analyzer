@@ -7,11 +7,6 @@
 content = @`
 <div>
     <p>Тут будет главная страница</p>
-        @if(page.getError() != null)
-            <ul>
-                <li>${page.getError()}</li>
-            </ul>
-        @endif
     <form action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
         <div class="mb-3">
             <label>
