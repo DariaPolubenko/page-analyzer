@@ -22,11 +22,8 @@ public class UrlsController {
     public static void mainPage(Context ctx) {
         var page = new BuildUrlsPage();
 
-        String flash = ctx.consumeSessionAttribute("flash");
-        page.setFlash(flash);
-
-        String flashType = ctx.consumeSessionAttribute("flash-type");
-        page.setFlashType(flashType);
+        page.setFlash(ctx.consumeSessionAttribute("flash"));
+        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
 
         ctx.render("index.jte", model("page", page));
     }
@@ -55,7 +52,7 @@ public class UrlsController {
 
             } else {
                 ctx.sessionAttribute("flash", "Сайт уже существует");
-                ctx.sessionAttribute("flash-type", "warning");
+                ctx.sessionAttribute("flash-type", "primary");
                 ctx.redirect(NamedRoutes.urlsPath());
             }
 
@@ -79,11 +76,8 @@ public class UrlsController {
         var urls = UrlRepository.getEntities();
         var page = new UrlsPage(urls);
 
-        String flash = ctx.consumeSessionAttribute("flash");
-        page.setFlash(flash);
-
-        String flashType = ctx.consumeSessionAttribute("flash-type");
-        page.setFlashType(flashType);
+        page.setFlash(ctx.consumeSessionAttribute("flash"));
+        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
 
         ctx.render("showUrls.jte", model("page", page));
     }
