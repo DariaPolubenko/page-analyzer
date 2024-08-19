@@ -10,10 +10,10 @@ content = @`
             ${page.getFlash()}
         </div>
     @endif
-    <div class="container">
+    <div class="container"> <!-- position-absolute top-50 start-50 translate-middle -->
         <div>
-            <h1>Анализатор страниц</h1>
-            <p>Бесплатно проверяйте сайты на SEO пригодность</p>
+            <h1 class="fw-normal">Анализатор страниц</h1>
+            <p class="fw-normal">Бесплатно проверяйте сайты на SEO пригодность</p>
         </div>
 
         <form class="row g-1" action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
@@ -24,7 +24,7 @@ content = @`
         </form>
 
         <div>
-            <p>Пример: https://www.example.com</p>
+            <p class="fw-normal lh-lg text-body-secondary">Пример: https://www.example.com</p>
         </div>
     </div>
     `
