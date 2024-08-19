@@ -1,17 +1,15 @@
 package hexlet.code.controllers;
 
 import hexlet.code.dto.BuildUrlsPage;
+import hexlet.code.dto.UrlPage;
 import hexlet.code.dto.UrlsPage;
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.utils.NamedRoutes;
 import io.javalin.http.Context;
-import io.javalin.validation.ValidationException;
+import io.javalin.http.NotFoundResponse;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.net.URI;
@@ -21,11 +19,9 @@ import static io.javalin.rendering.template.TemplateUtil.model;
 public class UrlsController {
     public static void mainPage(Context ctx) {
         var page = new BuildUrlsPage();
-
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
-
-        ctx.render("index.jte", model("page", page));
+        ctx.render("build.jte", model("page", page));
     }
 
     public static void create(Context ctx) {
@@ -56,29 +52,27 @@ public class UrlsController {
                 ctx.redirect(NamedRoutes.urlsPath());
             }
 
-        } catch (Exception e) {
+        } catch (Exception e) { //здесь должна быть ошибка "URISyntaxException", но он почему-то его не видит, поэтому пришлось добавить Exception
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flash-type", "danger");
-
             ctx.redirect(NamedRoutes.mainPath());
         }
-
-        /* } catch (URISyntaxException e) {
-            ctx.sessionAttribute("flash", "Некорректный URL");
-            ctx.sessionAttribute("flash-type", "danger");
-
-            ctx.redirect(NamedRoutes.mainPath());
-        }
-         */
     }
 
     public static void show(Context ctx) throws SQLException {
         var urls = UrlRepository.getEntities();
         var page = new UrlsPage(urls);
-
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
+        ctx.render("index.jte", model("page", page));
+    }
 
-        ctx.render("showUrls.jte", model("page", page));
+    public static void find(Context ctx) throws SQLException {
+        var id = ctx.pathParamAsClass("id", Long.class).get();
+        var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
+
+        var page = new UrlPage(url);
+        ctx.render("show.jte", model("page", page));
+
     }
 }
