@@ -15,13 +15,25 @@
           crossorigin="anonymous">
     <title>Анализатор страниц</title>
 </head>
-<body class="container">
-<div class="btn-group row">
-    <p class="d-inline-flex gap-1">
-        <a href="${NamedRoutes.mainPath()}" class="btn btn-outline-primary rounded-1 fw-light">Главная</a>
-        <a href="${NamedRoutes.urlsPath()}" class="btn btn-outline-primary rounded-1 fw-light">Сайты</a>
-    </p>
-</div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="${NamedRoutes.mainPath()}">Анализатор страниц</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="${NamedRoutes.mainPath()}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${NamedRoutes.urlsPath()}">Сайты</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<body>
 ${content}
 </body>
 </html>
