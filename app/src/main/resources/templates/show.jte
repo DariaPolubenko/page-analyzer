@@ -8,7 +8,7 @@
 @template.layout.page(
 
 content = @`
-    <div class="container">
+    <div class="container" style="margin-top: 2rem;">
         <table class="table">
             <thead>
             <tr>
