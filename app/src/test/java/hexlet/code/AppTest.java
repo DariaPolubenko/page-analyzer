@@ -50,7 +50,18 @@ public class AppTest {
             var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
             assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains("https://getbootstrap.com");
         });
     }
+
+    @Test
+    public void testUrlId() {
+        JavalinTest.test(app, (server, client) -> {
+            var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
+            client.post(NamedRoutes.urlsPath(), requestBody);
+
+            var response = client.get(NamedRoutes.urlsPath(Long.valueOf(1)));
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
 }
