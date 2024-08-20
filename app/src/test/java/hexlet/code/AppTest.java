@@ -28,7 +28,7 @@ public class AppTest {
     }
 
     @Test
-    public void testUrlsPage() {
+    public void testUrlsPage1() {
         JavalinTest.test(app, (server, client) -> {
             var response = client.get(NamedRoutes.urlsPath());
             assertThat(response.code()).isEqualTo(200);
@@ -49,6 +49,17 @@ public class AppTest {
         JavalinTest.test(app, (server, client) -> {
             var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
+    @Test
+    public void testUrlsPage2() {
+        JavalinTest.test(app, (server, client) -> {
+            var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
+            client.post(NamedRoutes.urlsPath(), requestBody);
+
+            var response = client.get(NamedRoutes.urlsPath());
             assertThat(response.code()).isEqualTo(200);
         });
     }
