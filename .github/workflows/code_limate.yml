@@ -1,6 +1,7 @@
 name: Code Climate
 
-on: push
+on: 
+  - push
 
 jobs:
   build:
@@ -24,6 +25,3 @@ jobs:
         with:
            coverageCommand: make report
            coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-
-
-           
