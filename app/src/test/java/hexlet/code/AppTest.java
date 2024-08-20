@@ -48,31 +48,15 @@ public class AppTest {
     public void testCreateUrl() {
         JavalinTest.test(app, (server, client) -> {
             var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
-            var response = client.post(NamedRoutes.urlsPath(), requestBody);
-            assertThat(response.code()).isEqualTo(200);
+
+            var response1 = client.post(NamedRoutes.urlsPath(), requestBody);
+            assertThat(response1.code()).isEqualTo(200);
+
+            var response2 = client.get(NamedRoutes.urlsPath());
+            assertThat(response2.code()).isEqualTo(200);
+
+            var response3 = client.get(NamedRoutes.urlsPath(Long.valueOf(1)));
+            assertThat(response3.code()).isEqualTo(200);
         });
     }
-
-    @Test
-    public void testUrlsPage2() {
-        JavalinTest.test(app, (server, client) -> {
-            var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
-            client.post(NamedRoutes.urlsPath(), requestBody);
-
-            var response = client.get(NamedRoutes.urlsPath());
-            assertThat(response.code()).isEqualTo(200);
-        });
-    }
-
-    @Test
-    public void testUrlId() {
-        JavalinTest.test(app, (server, client) -> {
-            var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
-            client.post(NamedRoutes.urlsPath(), requestBody);
-
-            var response = client.get(NamedRoutes.urlsPath(Long.valueOf(1)));
-            assertThat(response.code()).isEqualTo(200);
-        });
-    }
-
 }
