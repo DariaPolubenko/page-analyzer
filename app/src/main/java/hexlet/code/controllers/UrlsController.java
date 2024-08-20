@@ -26,7 +26,6 @@ public class UrlsController {
 
     public static void create(Context ctx) {
         var name = ctx.formParam("name");
-
         try {
             var url = new URI(name).toURL();
             var normalizedUrl = UriComponentsBuilder.newInstance()
@@ -37,7 +36,6 @@ public class UrlsController {
                     .toUri()
                     .toURL()
                     .toString();
-
             if (UrlRepository.search(normalizedUrl).isEmpty()) {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 var resultUrl = new Url(normalizedUrl, timestamp);
@@ -45,15 +43,11 @@ public class UrlsController {
                 ctx.sessionAttribute("flash", "Сайт добавлен!");
                 ctx.sessionAttribute("flash-type", "success");
                 ctx.redirect(NamedRoutes.urlsPath());
-
             } else {
                 ctx.sessionAttribute("flash", "Сайт уже существует");
                 ctx.sessionAttribute("flash-type", "primary");
                 ctx.redirect(NamedRoutes.urlsPath());
             }
-
-            //здесь должна быть ошибка "URISyntaxException",
-            // но он почему-то его не видит, поэтому пришлось добавить Exception
         } catch (Exception e) {
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flash-type", "danger");
