@@ -10,6 +10,8 @@ import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.net.URI;
@@ -27,18 +29,11 @@ public class UrlsController {
     public static void create(Context ctx) {
         var name = ctx.formParam("name");
         try {
-            var url = new URI(name).toURL();
-            var normalizedUrl = UriComponentsBuilder.newInstance()
-                    .scheme(url.getProtocol())
-                    .host(url.getHost())
-                    .port(url.getPort())
-                    .build()
-                    .toUri()
-                    .toURL()
-                    .toString();
-            if (UrlRepository.search(normalizedUrl).isEmpty()) {
+            var url = getUrl(name);
+
+            if (UrlRepository.search(url).isEmpty()) {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                var resultUrl = new Url(normalizedUrl, timestamp);
+                var resultUrl = new Url(url, timestamp);
                 UrlRepository.save(resultUrl);
                 ctx.sessionAttribute("flash", "Сайт добавлен!");
                 ctx.sessionAttribute("flash-type", "success");
@@ -66,9 +61,21 @@ public class UrlsController {
     public static void find(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
-
         var page = new UrlPage(url);
         ctx.render("show.jte", model("page", page));
+    }
 
+    public static String getUrl(String name) throws URISyntaxException, MalformedURLException {
+        var url = new URI(name).toURL();
+        var normalizedUrl = UriComponentsBuilder.newInstance()
+                .scheme(url.getProtocol())
+                .host(url.getHost())
+                .port(url.getPort())
+                .build()
+                .toUri()
+                .toURL()
+                .toString();
+
+        return normalizedUrl;
     }
 }
