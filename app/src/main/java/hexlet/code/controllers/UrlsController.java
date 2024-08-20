@@ -52,7 +52,8 @@ public class UrlsController {
                 ctx.redirect(NamedRoutes.urlsPath());
             }
 
-        } catch (Exception e) { //здесь должна быть ошибка "URISyntaxException", но он почему-то его не видит, поэтому пришлось добавить Exception
+            //здесь должна быть ошибка "URISyntaxException", но он почему-то его не видит, поэтому пришлось добавить Exception
+        } catch (Exception e) {
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flash-type", "danger");
             ctx.redirect(NamedRoutes.mainPath());
