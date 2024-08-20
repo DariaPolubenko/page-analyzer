@@ -43,4 +43,14 @@ public class AppTest {
             assertThat(response.body().string()).contains("Сайт не найден");
         });
     }
+
+    @Test
+    public void testCreateUrl() {
+        JavalinTest.test(app, (server, client) -> {
+            var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
+            var response = client.post(NamedRoutes.urlsPath(), requestBody);
+            assertThat(response.code()).isEqualTo(200);
+            assertThat(response.body().string()).contains("https://getbootstrap.com");
+        });
+    }
 }
