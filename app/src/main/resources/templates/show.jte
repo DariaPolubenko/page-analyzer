@@ -25,6 +25,11 @@ content = @`
             </tr>
             </tbody>
         </table>
+        <form>
+            <div>
+                <button type="submit" class="btn btn-secondary" type="button">Проверить</button>
+            </div>
+        </form>
     </div>
 `,
 )
