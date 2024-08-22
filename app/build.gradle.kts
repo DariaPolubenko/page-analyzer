@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.konghq:unirest-java:4.0.0-RC2")
     implementation("com.h2database:h2:2.2.224")
     implementation("org.postgresql:postgresql:42.7.1")
     implementation("com.zaxxer:HikariCP:5.1.0")
