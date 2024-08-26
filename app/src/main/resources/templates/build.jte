@@ -1,6 +1,6 @@
 @import hexlet.code.utils.NamedRoutes
-@import  hexlet.code.dto.BuildUrlsPage
-@param BuildUrlsPage page
+@import  hexlet.code.dto.BasePage
+@param BasePage page
 
 
 @template.layout.page(
@@ -19,7 +19,7 @@ content = @`
 
             <form class="row g-1" action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
                 <div class="input-group">
-                    <input type="url" class="form-control" placeholder="Ссылка" name="name" value="${page.getName()}">
+                    <input type="url" class="form-control" placeholder="Ссылка" name="name">
                     <button type="submit" class="btn btn-secondary" type="button">Проверить</button>
                 </div>
             </form>
