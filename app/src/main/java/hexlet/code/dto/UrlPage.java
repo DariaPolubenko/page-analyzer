@@ -6,10 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UrlPage {
     private Url url;
-    private UrlCheck urlCheck;
+    private List<UrlCheck> urlCheck;
 }
