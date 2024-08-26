@@ -4,6 +4,7 @@
 @param UrlPage page
 
 !{var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");}
+!{var id = 0;}
 
 @template.layout.page(
 
@@ -43,6 +44,7 @@ content = @`
             <table class="table">
                 <thead>
                 <tr>
+                    <th scope="col">№</th>
                     <th scope="col">Код ответа</th>
                     <th scope="col">title</th>
                     <th scope="col">h1</th>
@@ -51,13 +53,16 @@ content = @`
                 </tr>
                 </thead>
                 <tbody>
+                @for(var check : page.getUrlCheck())
                 <tr>
-                    <th scope="row">${page.getUrlCheck().getStatusCode()}</th>
-                    <td>${page.getUrlCheck().getTitle()}</td>
-                    <td>${page.getUrlCheck().getH1()}</td>
-                    <td>${page.getUrlCheck().getDescription()}</td>
-                    <td>${page.getUrlCheck().getCreatedAt().toLocalDateTime().format(formatter)}</td>
+                    <th scope="row">${id + 1}</th>
+                    <th scope="row">${check.getStatusCode()}</th>
+                    <td>${check.getTitle()}</td>
+                    <td>${check.getH1()}</td>
+                    <td>${check.getDescription()}</td>
+                    <td>${check.getCreatedAt().toLocalDateTime().format(formatter)}</td>
                 </tr>
+                @endfor
                 </tbody>
             </table>
         @endif
