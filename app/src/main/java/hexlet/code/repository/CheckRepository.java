@@ -1,15 +1,17 @@
 package hexlet.code.repository;
 
-import hexlet.code.model.Url;
 import hexlet.code.model.UrlCheck;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static hexlet.code.repository.BaseRepository.dataSource;
 
-public class UrlCheckRepository {
+public class CheckRepository {
     public static void saveCheck (UrlCheck urlCheck) throws SQLException {
         var sql = "INSERT INTO url_checks (status_code, title, h1, description, url_id, created_at) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -34,13 +36,14 @@ public class UrlCheckRepository {
         }
     }
 
-    public static Optional<UrlCheck> findCheck(Long id) throws SQLException {
-        var sql = "SELECT * FROM url_checks WHERE id = ?";
+    public static List<UrlCheck> findCheck(Long id) throws SQLException {
+        var sql = "SELECT * FROM url_checks WHERE url_id = ?";
 
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, id);
             var resultSet = stmt.executeQuery();
+            var result = new ArrayList<UrlCheck>();
 
             if (resultSet.next()) {
                 var statusCode = resultSet.getInt("status_code");
@@ -52,9 +55,9 @@ public class UrlCheckRepository {
 
                 var check = new UrlCheck(statusCode, title, h1, description, urlId, createdAt);
                 check.setId(id);
-                return Optional.of(check);
+                result.add(check);
             }
-            return Optional.empty();
+            return result;
         }
     }
 }
