@@ -6,6 +6,11 @@ import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -18,13 +23,21 @@ public class UrlChecksController {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
 
-        // здесь должна быть проверка
-        // и сохранение полученных данных в UrlCheckRepository
-        var check = new UrlCheck(202, "title", "h1", "description", url.getId(), new Timestamp(System.currentTimeMillis()));
+        HttpResponse<String> response = Unirest.get(url.getName()).asString();
+
+        var statusCode = response.getStatus();
+        var body = response.getBody();
+
+        //Document doc = Jsoup.parse(body);
+        //var title = doc.title();
+        //var h1 = doc.select("h1").toString();
+        //var description = doc.select("meta[name=description]").attr("content");
+        var createdAt = new Timestamp(System.currentTimeMillis());
+
+        var check = new UrlCheck(statusCode, "", "", "", id, createdAt);
         UrlCheckRepository.save(check);
 
         var checkPage = new UrlCheckPage(check);
         ctx.render("show.jte", model("checkPage", checkPage));
-
     }
 }
