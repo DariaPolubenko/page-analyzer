@@ -35,7 +35,7 @@ content = @`
             однако сама по себе  ${NamedRoutes.urlCheck(page.getUrl().getId())} выводится корректно, как urls/1/checks
             -->
             <div class="input-group">
-                <button type="submit" class="form-control">Проверить</button>
+                <button type="submit" class="btn btn-secondary">Проверить</button>
             </div>
         </form>
 
