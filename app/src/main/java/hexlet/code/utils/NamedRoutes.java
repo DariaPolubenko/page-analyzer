@@ -17,12 +17,13 @@ public class NamedRoutes {
         return urlsPath(String.valueOf(id));
     }
 
-    public static String urlsCheks(String id) {
+    public static String urlCheck(String id) {
         return "urls/" + id + "/checks";
     }
 
-    public static String urlsCheks(Long id) {
-        return urlsCheks(Long.valueOf(id));
+    public static String urlCheck(Long id) {
+        return urlCheck(String.valueOf(id));
     }
+
 }
 
