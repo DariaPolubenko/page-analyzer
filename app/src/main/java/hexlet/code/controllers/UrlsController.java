@@ -1,10 +1,10 @@
 package hexlet.code.controllers;
 
-import hexlet.code.dto.BuildUrlsPage;
+import hexlet.code.dto.BasePage;
 import hexlet.code.dto.UrlPage;
 import hexlet.code.dto.UrlsPage;
 import hexlet.code.model.Url;
-import hexlet.code.repository.UrlCheckRepository;
+import hexlet.code.repository.CheckRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.utils.NamedRoutes;
 import io.javalin.http.Context;
@@ -21,14 +21,14 @@ import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class UrlsController {
     public static void mainPage(Context ctx) {
-        var page = new BuildUrlsPage();
+        var page = new BasePage();
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
         ctx.render("build.jte", model("page", page));
     }
 
     public static void create(Context ctx) {
-        var name = ctx.formParam("name");
+        var name = ctx.formParam("name").trim();
         try {
             var url = getUrl(name);
 
@@ -62,7 +62,7 @@ public class UrlsController {
     public static void find(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
-        var check = UrlCheckRepository.findCheck(id).orElse(null);
+        var check = CheckRepository.findCheck(id);
         var page = new UrlPage(url, check);
         ctx.render("show.jte", model("page", page));
     }
