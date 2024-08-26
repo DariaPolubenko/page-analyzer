@@ -1,9 +1,7 @@
 @import hexlet.code.utils.NamedRoutes
 @import hexlet.code.dto.UrlPage
 @import java.time.format.DateTimeFormatter
-@import hexlet.code.dto.UrlCheckPage
 @param UrlPage page
-@param UrlCheckPage checkPage
 
 !{var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");}
 
@@ -41,7 +39,7 @@ content = @`
         </form>
 
 
-        @if(checkPage != null)
+        @if(page.getUrlCheck() != null)
             <table class="table">
                 <thead>
                 <tr>
@@ -54,11 +52,11 @@ content = @`
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope="row">${checkPage.getUrlCheck().getStatusCode()}</th>
-                    <td>${checkPage.getUrlCheck().getTitle()}</td>
-                    <td>${checkPage.getUrlCheck().getH1()}</td>
-                    <td>${checkPage.getUrlCheck().getDescription()}</td>
-                    <td>${checkPage.getUrlCheck().getCreatedAt().toLocalDateTime().format(formatter)}</td>
+                    <th scope="row">${page.getUrlCheck().getStatusCode()}</th>
+                    <td>${page.getUrlCheck().getTitle()}</td>
+                    <td>${page.getUrlCheck().getH1()}</td>
+                    <td>${page.getUrlCheck().getDescription()}</td>
+                    <td>${page.getUrlCheck().getCreatedAt().toLocalDateTime().format(formatter)}</td>
                 </tr>
                 </tbody>
             </table>
