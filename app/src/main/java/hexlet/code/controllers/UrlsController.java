@@ -4,6 +4,7 @@ import hexlet.code.dto.BuildUrlsPage;
 import hexlet.code.dto.UrlPage;
 import hexlet.code.dto.UrlsPage;
 import hexlet.code.model.Url;
+import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.utils.NamedRoutes;
 import io.javalin.http.Context;
@@ -61,7 +62,8 @@ public class UrlsController {
     public static void find(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
-        var page = new UrlPage(url);
+        var check = UrlCheckRepository.findCheck(id).orElse(null);
+        var page = new UrlPage(url, check);
         ctx.render("show.jte", model("page", page));
     }
 
