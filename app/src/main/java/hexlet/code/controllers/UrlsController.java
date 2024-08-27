@@ -62,6 +62,7 @@ public class UrlsController {
     public static void find(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
+
         var check = CheckRepository.findCheck(id);
         var page = new UrlPage(url, check);
         ctx.render("show.jte", model("page", page));
