@@ -1,13 +1,11 @@
 package hexlet.code.repository;
 
+import hexlet.code.model.Url;
 import hexlet.code.model.UrlCheck;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static hexlet.code.repository.BaseRepository.dataSource;
 
@@ -56,6 +54,31 @@ public class CheckRepository {
                 var check = new UrlCheck(statusCode, title, h1, description, urlId, createdAt);
                 check.setId(id);
                 result.add(check);
+            }
+            return result;
+        }
+    }
+
+    public static Map<Long, UrlCheck> getLastChecks() throws SQLException {
+        var sql = "SELECT * FROM url_checks";
+
+        try (var conn = dataSource.getConnection();
+             var stmt = conn.prepareStatement(sql)) {
+            var resultSet = stmt.executeQuery();
+            var result = new HashMap<Long, UrlCheck>();
+
+            while (resultSet.next()) {
+                var id = resultSet.getLong("id");
+                var statusCode = resultSet.getInt("status_code");
+                var title = resultSet.getString("title");
+                var h1 = resultSet.getString("h1");
+                var description = resultSet.getString("description");
+                var urlId = resultSet.getLong("url_id");
+                var createdAt = resultSet.getTimestamp("created_at");
+
+                var check = new UrlCheck(statusCode, title, h1, description, urlId, createdAt);
+                check.setId(id);
+                result.put(urlId, check);
             }
             return result;
         }
