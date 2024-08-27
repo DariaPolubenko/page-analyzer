@@ -45,7 +45,7 @@ public class CheckRepository {
             var resultSet = stmt.executeQuery();
             var result = new ArrayList<UrlCheck>();
 
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 var statusCode = resultSet.getInt("status_code");
                 var title = resultSet.getString("title");
                 var h1 = resultSet.getString("h1");
