@@ -4,7 +4,6 @@
 @param UrlPage page
 
 !{var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");}
-!{var id = 0;}
 
 @template.layout.page(
 
@@ -40,32 +39,30 @@ content = @`
         </form>
 
 
-        @if(page.getUrlCheck() != null)
-            <table class="table">
-                <thead>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Код ответа</th>
+                <th scope="col">title</th>
+                <th scope="col">h1</th>
+                <th scope="col">description</th>
+                <th scope="col">Дата проверки</th>
+            </tr>
+            </thead>
+            <tbody>
+            @for(var check : page.getUrlCheck())
                 <tr>
-                    <th scope="col">№</th>
-                    <th scope="col">Код ответа</th>
-                    <th scope="col">title</th>
-                    <th scope="col">h1</th>
-                    <th scope="col">description</th>
-                    <th scope="col">Дата проверки</th>
-                </tr>
-                </thead>
-                <tbody>
-                @for(var check : page.getUrlCheck())
-                <tr>
-                    <th scope="row">${id + 1}</th>
-                    <th scope="row">${check.getStatusCode()}</th>
+                    <td>${check.getId()}</td>
+                    <td>${check.getStatusCode()}</td>
                     <td>${check.getTitle()}</td>
                     <td>${check.getH1()}</td>
                     <td>${check.getDescription()}</td>
                     <td>${check.getCreatedAt().toLocalDateTime().format(formatter)}</td>
                 </tr>
-                @endfor
-                </tbody>
-            </table>
-        @endif
+            @endfor
+            </tbody>
+        </table>
     </div>
 `
 )
