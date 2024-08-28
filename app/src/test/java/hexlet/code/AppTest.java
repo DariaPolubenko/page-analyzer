@@ -97,7 +97,7 @@ public class AppTest {
             var url = new Url(serverUrl, new Timestamp(System.currentTimeMillis()));
             UrlRepository.save(url);
 
-            var response2 = client.get(NamedRoutes.urlCheck(url.getId()));
+            var response2 = client.post(NamedRoutes.urlCheck(url.getId()));
             assertThat(response2.code()).equals(200);
 
         });
