@@ -28,7 +28,7 @@ public class UrlsController {
     }
 
     public static void create(Context ctx) {
-        var name = ctx.formParam("name").trim();
+        var name = ctx.formParam("name").trim().toLowerCase();
         try {
             var url = getUrl(name);
 
@@ -79,7 +79,6 @@ public class UrlsController {
                 .toUri()
                 .toURL()
                 .toString();
-
         return normalizedUrl;
     }
 }
