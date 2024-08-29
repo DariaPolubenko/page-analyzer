@@ -25,9 +25,9 @@ public class AppTest {
     @BeforeAll
     public static void setMockServer() throws  IOException {
         mockServer = new MockWebServer();
-        mockServer.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody(readFixture("test.jte")));
+        var mockedResponse = new MockResponse()
+                .setBody(readFixture("test.jte"));
+        mockServer.enqueue(mockedResponse);
         mockServer.start();
     }
 
