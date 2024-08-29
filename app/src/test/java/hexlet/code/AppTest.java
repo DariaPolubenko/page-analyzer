@@ -97,7 +97,7 @@ public class AppTest {
         });
     }
 
-    public static String readFixture(String filepath) throws IOException{
+    public static String readFixture(String filepath) throws IOException {
         var fullPath = Paths.get("src/test/resources/fixtures/" + filepath).toAbsolutePath().normalize();
 
         if (!Files.exists(fullPath)) {
