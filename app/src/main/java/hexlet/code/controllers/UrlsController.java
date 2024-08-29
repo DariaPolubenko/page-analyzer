@@ -28,7 +28,7 @@ public class UrlsController {
     }
 
     public static void create(Context ctx) {
-        var name = ctx.formParam("name");
+        var name = ctx.formParam("url");
         try {
             var url = getUrl(name);
 
