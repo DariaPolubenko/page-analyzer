@@ -73,7 +73,7 @@ public class AppTest {
     @Test
     public void testCreateUrl() {
         JavalinTest.test(app, (server, client) -> {
-            var requestBody = "name=https://getbootstrap.com/docs/5.3/components/buttons/";
+            var requestBody = "url=https://getbootstrap.com/docs/5.3/components/buttons/";
             var expected = "https://getbootstrap.com";
 
             var response1 = client.post(NamedRoutes.urlsPath(), requestBody);
@@ -109,5 +109,25 @@ public class AppTest {
         }
         var content = Files.readString(fullPath);
         return content;
+    }
+
+    @Test
+    void testStore() {
+
+        String inputUrl = "https://ru.hexlet.io";
+
+        JavalinTest.test(app, (server, client) -> {
+            var requestBody = "url=" + inputUrl;
+            assertThat(client.post("/urls", requestBody).code()).isEqualTo(200);
+
+            var response = client.get("/urls");
+            assertThat(response.code()).isEqualTo(200);
+            assertThat(response.body().string())
+                    .contains(inputUrl);
+
+            //var actualUrl = TestUtils.getUrlByName(dataSource, inputUrl);
+            //assertThat(actualUrl).isNotNull();
+            //assertThat(actualUrl.get("name").toString()).isEqualTo(inputUrl);
+        });
     }
 }
