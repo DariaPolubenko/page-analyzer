@@ -37,6 +37,6 @@ public class CheckController {
         var description = doc.select("meta[name=description]").attr("content");
         var createdAt = new Timestamp(System.currentTimeMillis());
 
-       return new UrlCheck(statusCode, title, h1, description, id, createdAt);
+        return new UrlCheck(statusCode, title, h1, description, id, createdAt);
     }
 }
