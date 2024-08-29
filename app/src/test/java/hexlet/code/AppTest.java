@@ -29,6 +29,7 @@ public class AppTest {
     public static void setMockServer() throws  IOException {
         mockServer = new MockWebServer();
         var mockedResponse = new MockResponse()
+                .setResponseCode(200)
                 .setBody(readFixture("index.jte"));
         mockServer.enqueue(mockedResponse);
         mockServer.start();
