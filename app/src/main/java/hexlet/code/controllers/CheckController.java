@@ -11,32 +11,47 @@ import kong.unirest.Unirest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class CheckController {
     //нужно сделать список проверок для одного url
 
-    public static void checkUrl(Context ctx) throws SQLException {
+    public static void checkUrl(Context ctx) throws SQLException, MalformedURLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
-        var check = getCheck(url.getName(), id);
-        CheckRepository.saveCheck(check);
-        ctx.redirect(NamedRoutes.urlsPath(id));
+
+        try {
+            var check = getCheck(url.getName(), id);
+            CheckRepository.saveCheck(check);
+            ctx.redirect(NamedRoutes.urlsPath(id));
+
+        } catch (MalformedURLException e) {
+            ctx.sessionAttribute("flash", "Страница не существует");
+            ctx.sessionAttribute("flash-type", "danger");
+            ctx.redirect(NamedRoutes.urlsPath());
+        }
     }
 
-    public static UrlCheck getCheck(String url, Long id) {
-        HttpResponse<String> response = Unirest.get(url).asString();
+    public static UrlCheck getCheck(String url, Long id) throws MalformedURLException {
 
-        var statusCode = response.getStatus();
-        var body = response.getBody();
+        try {
+            HttpResponse<String> response = Unirest.get(url).asString();
 
-        Document doc = Jsoup.parse(body);
-        var title = doc.title();
-        var h1 = doc.select("h1").text();
-        var description = doc.select("meta[name=description]").attr("content");
-        var createdAt = new Timestamp(System.currentTimeMillis());
+            var statusCode = response.getStatus();
+            var body = response.getBody();
 
-        return new UrlCheck(statusCode, title, h1, description, id, createdAt);
+            Document doc = Jsoup.parse(body);
+            var title = doc.title();
+            var h1 = doc.select("h1").text();
+            var description = doc.select("meta[name=description]").attr("content");
+            var createdAt = new Timestamp(System.currentTimeMillis());
+
+            return new UrlCheck(statusCode, title, h1, description, id, createdAt);
+
+        } catch (Exception e) {
+            throw new MalformedURLException();
+        }
     }
 }
