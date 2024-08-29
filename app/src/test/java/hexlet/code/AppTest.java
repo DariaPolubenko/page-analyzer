@@ -84,7 +84,6 @@ public class AppTest {
         });
     }
 
-
     @Test
     public void testUrlCheck() {
         JavalinTest.test(app, (server, client) -> {
@@ -93,10 +92,10 @@ public class AppTest {
             UrlRepository.save(url);
 
             var response2 = client.post(NamedRoutes.urlCheck(url.getId()));
+            assertThat(response2.code()).isEqualTo(200);
             assertThat(response2.body().string()).contains("Test");
         });
     }
-
 
     public static String readFixture(String filepath) throws IOException{
         var fullPath = Paths.get("src/test/resources/fixtures/" + filepath).toAbsolutePath().normalize();
@@ -107,5 +106,4 @@ public class AppTest {
         var content = Files.readString(fullPath);
         return content;
     }
-
 }
