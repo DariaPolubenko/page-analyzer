@@ -19,7 +19,7 @@ content = @`
 
             <form class="row g-1" action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
                 <div class="input-group">
-                    <input type="url" class="form-control" placeholder="Ссылка" name="name">
+                    <input type="url" class="form-control" placeholder="Ссылка" name="url">
                     <button type="submit" class="btn btn-secondary" type="button">Проверить</button>
                 </div>
             </form>
