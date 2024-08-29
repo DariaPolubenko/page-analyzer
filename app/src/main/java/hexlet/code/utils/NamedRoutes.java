@@ -18,7 +18,7 @@ public class NamedRoutes {
     }
 
     public static String urlCheck(String id) {
-        return "urls/" + id + "/checks";
+        return "/urls/" + id + "/checks";
     }
 
     public static String urlCheck(Long id) {
