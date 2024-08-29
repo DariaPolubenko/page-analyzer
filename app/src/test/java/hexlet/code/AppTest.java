@@ -29,7 +29,7 @@ public class AppTest {
     public static void setMockServer() throws  IOException {
         mockServer = new MockWebServer();
         var mockedResponse = new MockResponse()
-                .setBody(readFixture("test.jte"));
+                .setBody(readFixture("index.jte"));
         mockServer.enqueue(mockedResponse);
         mockServer.start();
     }
@@ -96,7 +96,7 @@ public class AppTest {
 
             var response2 = client.post(NamedRoutes.urlCheck(url.getId()));
             assertThat(response2.code()).isEqualTo(200);
-            assertThat(response2.body().string()).contains("Test");
+            assertThat(response2.body().string()).contains(readFixture("response.jte"));
         });
     }
 
