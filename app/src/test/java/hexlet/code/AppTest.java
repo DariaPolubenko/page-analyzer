@@ -3,40 +3,42 @@ package hexlet.code;
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.utils.NamedRoutes;
-import hexlet.code.utils.Utils;
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
-import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.assertEquals;
 
 public class AppTest {
     private static Javalin app;
     private static MockWebServer mockServer;
 
-    @BeforeEach
-    public final void setUp() throws IOException, SQLException {
-        app = App.getApp();
-
+    @BeforeAll
+    public static void setMockServer() throws  IOException {
         mockServer = new MockWebServer();
         mockServer.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(readFixture("test.jte")));
         mockServer.start();
+    }
+
+    @BeforeEach
+    public final void setUp() throws IOException, SQLException {
+        app = App.getApp();
+    }
+
+    @AfterAll
+    public static void stopMockServer() throws IOException {
+        mockServer.shutdown();
     }
 
     @Test
@@ -85,21 +87,13 @@ public class AppTest {
 
     @Test
     public void testUrlCheck() {
-        var serverUrl = mockServer.url("/").toString();
-
-        //тут ответы от фейксервера приходят корректно, но если кинуть этов се дело в JavalinTest - все ломается с ошибкой: Invalid URL port: "63438urls"
-        //HttpResponse<String> response1 = Unirest.get(baseUrl).asString();
-        //var code = response1.getStatus();
-        //assertEquals(200, code);
-        //assertThat(response1.getBody().toString()).contains("Test MockWebServer");
-
         JavalinTest.test(app, (server, client) -> {
+            var serverUrl = mockServer.url("/").toString();
             var url = new Url(serverUrl, new Timestamp(System.currentTimeMillis()));
             UrlRepository.save(url);
 
             var response2 = client.post(NamedRoutes.urlCheck(url.getId()));
             assertThat(response2.code()).equals(200);
-
         });
     }
 
