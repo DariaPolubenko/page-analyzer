@@ -28,7 +28,7 @@ public class UrlsController {
     }
 
     public static void create(Context ctx) {
-        var name = ctx.formParam("name").toLowerCase();
+        var name = ctx.formParam("name");
         try {
             var url = getUrl(name);
 
