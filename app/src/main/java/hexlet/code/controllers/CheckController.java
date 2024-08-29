@@ -25,7 +25,7 @@ public class CheckController {
         ctx.redirect(NamedRoutes.urlsPath(id));
     }
 
-    public static UrlCheck getCheck(String url, Long id) throws SQLException {
+    public static UrlCheck getCheck(String url, Long id) {
         HttpResponse<String> response = Unirest.get(url).asString();
 
         var statusCode = response.getStatus();
