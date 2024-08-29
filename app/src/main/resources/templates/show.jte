@@ -25,19 +25,12 @@ content = @`
             </tr>
             </tbody>
         </table>
-        <p>${NamedRoutes.urlCheck(page.getUrl().getId())}</p>
 
-        <form class="row g-1" action="${page.getUrl().getId()}/checks" method="post" style="margin-top: 15px">
-            <!--
-            При вводе  action="${NamedRoutes.urlCheck(page.getUrl().getId())}" происходит переход на
-            post /urls/urls/1/checks почему-то,
-            однако сама по себе  ${NamedRoutes.urlCheck(page.getUrl().getId())} выводится корректно, как urls/1/checks
-            -->
+        <form class="row g-1" action="${NamedRoutes.urlCheck(page.getUrl().getId())}" method="post" style="margin-top: 15px">
             <div class="input-group">
                 <button type="submit" class="btn btn-secondary">Проверить</button>
             </div>
         </form>
-
 
         <table class="table">
             <thead>
