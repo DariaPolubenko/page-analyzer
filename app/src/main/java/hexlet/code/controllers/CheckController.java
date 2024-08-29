@@ -16,8 +16,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class CheckController {
-    //нужно сделать список проверок для одного url
-
     public static void checkUrl(Context ctx) throws SQLException, MalformedURLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
@@ -35,10 +33,8 @@ public class CheckController {
     }
 
     public static UrlCheck getCheck(String url, Long id) throws MalformedURLException {
-
         try {
             HttpResponse<String> response = Unirest.get(url).asString();
-
             var statusCode = response.getStatus();
             var body = response.getBody();
 
