@@ -12,9 +12,9 @@ import static hexlet.code.repository.BaseRepository.dataSource;
 
 public class CheckRepository {
     public static void saveCheck(UrlCheck urlCheck) throws SQLException {
-        var sql = "INSERT INTO url_checks " +
-                "(status_code, title, h1, description, url_id, created_at) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        var sql = "INSERT INTO url_checks "
+                + "(status_code, title, h1, description, url_id, created_at) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
