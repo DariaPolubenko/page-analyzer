@@ -93,7 +93,7 @@ public class AppTest {
             UrlRepository.save(url);
 
             var response2 = client.post(NamedRoutes.urlCheck(url.getId()));
-            assertThat(response2.code()).equals(200);
+            assertThat(response2.body().string()).contains("Test");
         });
     }
 
