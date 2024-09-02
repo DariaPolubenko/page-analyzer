@@ -13,7 +13,6 @@ import org.jsoup.nodes.Document;
 
 import java.net.MalformedURLException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class CheckController {
     public static void checkUrl(Context ctx) throws SQLException, MalformedURLException {
