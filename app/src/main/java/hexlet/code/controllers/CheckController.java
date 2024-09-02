@@ -42,9 +42,8 @@ public class CheckController {
             var title = doc.title();
             var h1 = doc.select("h1").text();
             var description = doc.select("meta[name=description]").attr("content");
-            var createdAt = new Timestamp(System.currentTimeMillis());
 
-            return new UrlCheck(statusCode, title, h1, description, id, createdAt);
+            return new UrlCheck(statusCode, title, h1, description, id);
 
         } catch (Exception e) {
             throw new MalformedURLException();
