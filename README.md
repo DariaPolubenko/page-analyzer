@@ -7,9 +7,7 @@
  ## Description
 **[Page Analyzer](https://java-project-72-h1ut.onrender.com)** - a web-site that analyzes web-pages for SEO suitability.
 
-## Demo
-![Frame 1](https://github.com/user-attachments/assets/c9a5bb4e-9101-4028-a158-a5118dc7831f)
-
-
-
-[App link](https://java-project-72-h1ut.onrender.com)
+![Frame 1 (2)](https://github.com/user-attachments/assets/3451b4d8-9e53-4e9e-9cd1-cd43caf92ee3)
+![Frame 1](https://github.com/user-attachments/assets/38e03f3d-a07b-4540-85bc-d9b9711a6569)
+![Frame 1 (1)](https://github.com/user-attachments/assets/f1386218-d478-4326-9db1-9054653e35cf)
+_[Go to Page Analyzer](https://java-project-72-h1ut.onrender.com)_
