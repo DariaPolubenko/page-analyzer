@@ -7,4 +7,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/edfa458f86eb84988561/test_coverage)](https://codeclimate.com/github/DariaPolubenko/java-project-72/test_coverage)
 
  ## Description
-Page Analyzer - a web-site that analyzes said pages for SEO suitability.
+**Page Analyzer** - a web-site that analyzes said pages for SEO suitability.
