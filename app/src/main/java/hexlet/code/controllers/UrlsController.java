@@ -66,6 +66,8 @@ public class UrlsController {
 
         var check = CheckRepository.findCheck(urlId);
         var page = new UrlPage(url, check);
+        page.setFlash(ctx.consumeSessionAttribute("flash"));
+        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
         ctx.render("show.jte", model("page", page));
     }
 
