@@ -17,7 +17,7 @@ content = @`
             <p>Пока не добавлен ни один сайт</p>
         @else
             <table class="table">
-            <thead>
+            <thead class="table-light">
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Имя</th>
