@@ -22,6 +22,8 @@ public class CheckController {
         try {
             var check = getCheck(url.getName(), urlId);
             CheckRepository.saveCheck(check);
+            ctx.sessionAttribute("flash", "Страница успешно проверена");
+            ctx.sessionAttribute("flash-type", "success");
             ctx.redirect(NamedRoutes.urlsPath(urlId));
 
         } catch (MalformedURLException e) {
