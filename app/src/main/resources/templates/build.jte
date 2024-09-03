@@ -10,7 +10,7 @@ content = @`
             ${page.getFlash()}
         </div>
     @endif
-    <section class="text-bg-light p-3" style="height: 25rem; width: 100%">
+    <section class="text-bg-light p-3 bg-body-secondary" style="height: 24rem; width: 100%">
         <div class="container" style="margin-top: 10rem;"> <!-- position-absolute top-50 start-50 translate-middle -->
             <div>
                 <h1 class="fw-normal">Анализатор страниц</h1>
@@ -20,7 +20,7 @@ content = @`
             <form class="row g-1" action="${NamedRoutes.urlsPath()}" method="post" style="margin-top: 15px">
                 <div class="input-group">
                     <input type="url" class="form-control" placeholder="Ссылка" name="url">
-                    <button type="submit" class="btn btn-secondary" type="button">Проверить</button>
+                    <button type="submit" class="btn btn-primary" type="button">Проверить</button>
                 </div>
             </form>
 
