@@ -15,14 +15,14 @@ import java.net.MalformedURLException;
 import java.sql.SQLException;
 
 public class CheckController {
-    public static void checkUrl(Context ctx) throws SQLException, MalformedURLException {
-        var id = ctx.pathParamAsClass("id", Long.class).get();
-        var url = UrlRepository.find(id).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
+    public static void checkUrl(Context ctx) throws SQLException {
+        var urlId = ctx.pathParamAsClass("id", Long.class).get();
+        var url = UrlRepository.find(urlId).orElseThrow(() -> new NotFoundResponse("Сайт не найден"));
 
         try {
-            var check = getCheck(url.getName(), id);
+            var check = getCheck(url.getName(), urlId);
             CheckRepository.saveCheck(check);
-            ctx.redirect(NamedRoutes.urlsPath(id));
+            ctx.redirect(NamedRoutes.urlsPath(urlId));
 
         } catch (MalformedURLException e) {
             ctx.sessionAttribute("flash", "Страница не существует");
@@ -31,7 +31,7 @@ public class CheckController {
         }
     }
 
-    public static UrlCheck getCheck(String url, Long id) throws MalformedURLException {
+    public static UrlCheck getCheck(String url, Long urlId) throws MalformedURLException {
         try {
             HttpResponse<String> response = Unirest.get(url).asString();
             var statusCode = response.getStatus();
@@ -42,7 +42,7 @@ public class CheckController {
             var h1 = doc.select("h1").text();
             var description = doc.select("meta[name=description]").attr("content");
 
-            return new UrlCheck(statusCode, title, h1, description, id);
+            return new UrlCheck(statusCode, title, h1, description, urlId);
 
         } catch (Exception e) {
             throw new MalformedURLException();
