@@ -40,21 +40,21 @@ public class CheckRepository {
         }
     }
 
-    public static List<UrlCheck> findCheck(Long id) throws SQLException {
+    public static List<UrlCheck> findCheck(Long urlId) throws SQLException {
         var sql = "SELECT * FROM url_checks WHERE url_id = ?";
 
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(sql)) {
-            stmt.setLong(1, id);
+            stmt.setLong(1, urlId);
             var resultSet = stmt.executeQuery();
             var result = new ArrayList<UrlCheck>();
 
             while (resultSet.next()) {
+                var id = resultSet.getLong("id");
                 var statusCode = resultSet.getInt("status_code");
                 var title = resultSet.getString("title");
                 var h1 = resultSet.getString("h1");
                 var description = resultSet.getString("description");
-                var urlId = resultSet.getLong("url_id");
                 var createdAt = resultSet.getTimestamp("created_at");
 
                 var check = new UrlCheck(statusCode, title, h1, description, urlId);
