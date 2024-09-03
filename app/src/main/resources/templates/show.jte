@@ -8,6 +8,11 @@
 @template.layout.page(
 
 content = @`
+    @if(page.getFlash() != null)
+        <div class="alert alert-${page.getFlashType()}" role="alert">
+            ${page.getFlash()}
+        </div>
+    @endif
     <div class="container" style="margin-top: 2rem;">
         <table class="table">
             <thead class="table-light">
