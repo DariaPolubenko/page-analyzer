@@ -29,11 +29,11 @@ public class CheckRepository {
             stmt.setTimestamp(6, createdAt);
             stmt.executeUpdate();
 
-            var generatedKey = stmt.getGeneratedKeys();
+            urlCheck.setCreatedAt(createdAt);
 
+            var generatedKey = stmt.getGeneratedKeys();
             if (generatedKey.next()) {
                 urlCheck.setId(generatedKey.getLong(1));
-                urlCheck.setCreatedAt(createdAt);
             } else {
                 throw new SQLException("DB have not returned an id after saving an entity");
             }
