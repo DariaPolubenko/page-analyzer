@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -92,7 +91,7 @@ public class AppTest {
     public void testUrlCheck() {
         JavalinTest.test(app, (server, client) -> {
             var serverUrl = mockServer.url("/").toString();
-            var url = new Url(serverUrl, new Timestamp(System.currentTimeMillis()));
+            var url = new Url(serverUrl);
             UrlRepository.save(url);
 
             var response2 = client.post(NamedRoutes.urlCheck(url.getId()));
