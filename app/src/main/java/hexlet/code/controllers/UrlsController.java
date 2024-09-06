@@ -33,8 +33,7 @@ public class UrlsController {
             var url = getUrl(name);
 
             if (UrlRepository.search(url).isEmpty()) {
-                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                var resultUrl = new Url(url, timestamp);
+                var resultUrl = new Url(url);
                 UrlRepository.save(resultUrl);
                 ctx.sessionAttribute("flash", "Сайт добавлен!");
                 ctx.sessionAttribute("flash-type", "success");
